@@ -1,13 +1,15 @@
 #include "../include/Game.h"
+#include "../include/GameObject.h"
 #include <iostream>
 
+
 SDL_Rect destRect;
+SDL_Event Game::event;
 
 Game::Game()
 	:m_window{ nullptr },
 	m_renderer{ nullptr },
 	m_isRunning{ false },
-	m_playerTexture{ nullptr },
 	m_frame{0}
 {
 }
@@ -33,24 +35,22 @@ void Game::init(const char* title, int x, int y, int w, int h, bool fullscreen)
 	{
 		m_isRunning = false;
 	}
-
-	m_playerTexture = TextureManager::LoadTexture("./images/P1.png", m_renderer);
-
+	m_player = new GameObject("./images/P1.png", m_renderer);
+	m_enemy = new GameObject("./images/P2.png", m_renderer);
+	m_enemy->SetPosition(100, 100);
 }
 
 void Game::update()
 {
-	++m_frame;
-	destRect.w = 50;
-	destRect.h = 50;
-	destRect.x = m_frame;
-	std::cout << m_frame << std::endl;
+	m_player->Update();
+	m_enemy->Update();
 }
 
 void Game::render()
 {
 	SDL_RenderClear(m_renderer);
-	SDL_RenderCopy(m_renderer, m_playerTexture, NULL, &destRect);
+	m_player->Render();
+	m_enemy->Render();
 	SDL_RenderPresent(m_renderer);
 }
 
@@ -63,7 +63,6 @@ void Game::clean()
 
 void Game::handleEvents()
 {
-	SDL_Event event;
 	SDL_PollEvent(&event);
 	switch (event.type)
 	{

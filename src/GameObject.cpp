@@ -49,21 +49,21 @@ void GameObject::GetPosition()
 
 void GameObject::HandleInput()
 {
-	if (Game::event.type == SDL_KEYDOWN)
+	SDL_Keycode key = Game::event.key.keysym.sym;
+
+	if (Game::event.type == SDL_KEYDOWN && Game::event.key.repeat == 0)
 	{
-		SDL_Keycode key = Game::event.key.keysym.sym;
-		if (key == SDLK_a) m_xMove = -1.f;
-		else if (key == SDLK_d) m_xMove = 1.f;
-		if (key == SDLK_w) m_yMove = -1.f;
-		else if (key == SDLK_s) m_yMove = 1.f;
+		if (key == SDLK_a) m_xMove += -1.f;
+		else if (key == SDLK_d) m_xMove += 1.f;
+		if (key == SDLK_w) m_yMove += -1.f;
+		else if (key == SDLK_s) m_yMove += 1.f;
 	}
-	if (Game::event.type == SDL_KEYUP)
+	else if (Game::event.type == SDL_KEYUP && Game::event.key.repeat == 0)
 	{
-		SDL_Keycode key = Game::event.key.keysym.sym;
-		if (key == SDLK_a) m_xMove = 0;
-		else if (key == SDLK_d) m_xMove = 0;
-		if (key == SDLK_w) m_yMove = 0;
-		else if (key == SDLK_s) m_yMove = 0;
+		if (key == SDLK_a) m_xMove -= -1.f;
+		else if (key == SDLK_d) m_xMove -= 1.f;
+		if (key == SDLK_w) m_yMove -= -1.f;
+		else if (key == SDLK_s) m_yMove -= 1.f;
 	}
 }
 

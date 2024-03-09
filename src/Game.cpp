@@ -35,9 +35,8 @@ void Game::init(const char* title, int x, int y, int w, int h, bool fullscreen)
 	{
 		m_isRunning = false;
 	}
-	m_player = new GameObject("./images/P1.png", m_renderer);
-	m_enemy = new GameObject("./images/P2.png", m_renderer);
-	m_enemy->SetPosition(100, 100);
+	m_player = new GameObject("./images/P1.png", m_renderer, 0.f, 0.f);
+	m_enemy = new GameObject("./images/P2.png", m_renderer, 100.f, 100.f);
 }
 
 void Game::update()

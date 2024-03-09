@@ -2,13 +2,13 @@
 #include "../include/TextureManager.h"
 #include <iostream>
 
-GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer)
+GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, float x, float y)
 	:m_renderer{renderer},
 	m_texture{nullptr},
 	m_srcRect{},
 	m_destRec{},
-	m_xPos{0}, 
-	m_yPos{0},
+	m_xPos{x}, 
+	m_yPos{y},
 	m_speed{10},
 	m_yMove{0},
 	m_xMove{0}

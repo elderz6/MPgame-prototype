@@ -4,7 +4,7 @@
 class GameObject
 {
 public:
-	GameObject(const char* textureSheet, SDL_Renderer* renderer);
+	GameObject(const char* textureSheet, SDL_Renderer* renderer, float x, float y);
 	~GameObject();
 
 	void SetPosition(int x, int y);
@@ -15,8 +15,8 @@ public:
 	void GetPosition();
 
 private:
-	int m_xPos;
-	int m_yPos;
+	float m_xPos;
+	float m_yPos;
 
 	float m_speed;
 	float m_xMove;

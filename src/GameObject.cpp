@@ -2,7 +2,7 @@
 #include "../include/TextureManager.h"
 #include <iostream>
 
-GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, float x, float y)
+GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, float x, float y, bool isPlayer)
 	:m_renderer{renderer},
 	m_texture{nullptr},
 	m_srcRect{},
@@ -11,7 +11,8 @@ GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, float x
 	m_yPos{y},
 	m_speed{10},
 	m_yMove{0},
-	m_xMove{0}
+	m_xMove{0},
+	m_isLocalPlayer{isPlayer}
 {
 	m_texture = TextureManager::LoadTexture(textureSheet, renderer);
 	m_srcRect.h = 32;
@@ -33,8 +34,11 @@ void GameObject::SetPosition(int x, int y)
 
 void GameObject::Update()
 {
-	HandleInput();
-	ConsumeInput();
+	if (m_isLocalPlayer)
+	{
+		HandleInput();
+		ConsumeInput();
+	}
 }
 
 void GameObject::Render()
